@@ -1,4 +1,4 @@
-package com.azurgames.vknewsclient
+package com.azurgames.vknewsclient.presentation.comment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

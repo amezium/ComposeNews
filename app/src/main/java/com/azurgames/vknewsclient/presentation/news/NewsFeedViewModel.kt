@@ -1,11 +1,10 @@
-package com.azurgames.vknewsclient
+package com.azurgames.vknewsclient.presentation.news
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.azurgames.vknewsclient.domain.FeedPost
 import com.azurgames.vknewsclient.domain.StatisticItem
-import com.azurgames.vknewsclient.ui.theme.NewsFeedScreenState
 
 class NewsFeedViewModel : ViewModel() {
 

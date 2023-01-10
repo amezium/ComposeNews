@@ -1,4 +1,4 @@
-package com.azurgames.vknewsclient.ui.theme
+package com.azurgames.vknewsclient.presentation.comment
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -15,10 +15,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.azurgames.vknewsclient.CommentsViewModel
-import com.azurgames.vknewsclient.CommentsViewModelFactory
 import com.azurgames.vknewsclient.domain.FeedPost
 import com.azurgames.vknewsclient.domain.PostComment
+import com.azurgames.vknewsclient.ui.theme.NewsClientTheme
 
 @Composable
 fun CommentsScree(onBackPress: () -> Unit, feedPost: FeedPost) {

@@ -1,12 +1,10 @@
-package com.azurgames.vknewsclient
+package com.azurgames.vknewsclient.presentation.comment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.azurgames.vknewsclient.domain.FeedPost
 import com.azurgames.vknewsclient.domain.PostComment
-import com.azurgames.vknewsclient.ui.theme.CommentsScreenState
-import com.azurgames.vknewsclient.ui.theme.NewsFeedScreenState
 
 class CommentsViewModel(feedPost: FeedPost): ViewModel() {
 

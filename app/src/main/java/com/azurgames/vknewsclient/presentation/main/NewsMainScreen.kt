@@ -6,11 +6,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.azurgames.vknewsclient.domain.FeedPost
 import com.azurgames.vknewsclient.navigation.AppNavGraph
-import com.azurgames.vknewsclient.navigation.Screen
+import com.azurgames.vknewsclient.navigation.NavigationItem
 import com.azurgames.vknewsclient.navigation.rememberNavigationState
-import com.azurgames.vknewsclient.ui.theme.CommentsScree
+import com.azurgames.vknewsclient.presentation.comment.CommentsScree
 import com.azurgames.vknewsclient.ui.theme.HomeScreen
 
 @Composable

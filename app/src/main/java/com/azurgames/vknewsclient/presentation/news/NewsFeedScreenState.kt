@@ -1,4 +1,4 @@
-package com.azurgames.vknewsclient.ui.theme
+package com.azurgames.vknewsclient.presentation.news
 
 import com.azurgames.vknewsclient.domain.FeedPost
 

@@ -1,4 +1,4 @@
-package com.azurgames.vknewsclient.ui.theme
+package com.azurgames.vknewsclient.presentation.comment
 
 import com.azurgames.vknewsclient.domain.FeedPost
 import com.azurgames.vknewsclient.domain.PostComment

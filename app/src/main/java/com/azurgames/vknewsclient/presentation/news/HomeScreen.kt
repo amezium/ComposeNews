@@ -15,9 +15,10 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.azurgames.vknewsclient.NewsFeedViewModel
+import com.azurgames.vknewsclient.presentation.news.NewsFeedViewModel
 import com.azurgames.vknewsclient.PostCard
 import com.azurgames.vknewsclient.domain.FeedPost
+import com.azurgames.vknewsclient.presentation.news.NewsFeedScreenState
 
 @Composable
 fun HomeScreen(paddingValues: PaddingValues, onCommentClickListener: (FeedPost) -> Unit) {

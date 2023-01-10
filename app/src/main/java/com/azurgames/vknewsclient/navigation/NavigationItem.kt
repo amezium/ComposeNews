@@ -1,11 +1,11 @@
-package com.azurgames.vknewsclient
+package com.azurgames.vknewsclient.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.azurgames.vknewsclient.navigation.Screen
+import com.azurgames.vknewsclient.R
 
 sealed class NavigationItem(
     val screen: Screen,
