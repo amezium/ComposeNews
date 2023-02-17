@@ -1,5 +1,6 @@
 package com.azurgames.vknewsclient.presentation.news
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -145,6 +146,7 @@ private fun Statistics(
 }
 
 private fun formatStatisticCount(count: Int): String {
+    Log.d("test1", count.toString())
     return if (count > 100_000) {
         String.format("%sK", (count / 1000))
     } else if (count > 1000) {
