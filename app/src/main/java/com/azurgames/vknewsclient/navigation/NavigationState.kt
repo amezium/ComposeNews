@@ -7,20 +7,22 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.azurgames.vknewsclient.domain.FeedPost
 
-class NavigationState(val navHostController: NavHostController) {
+class NavigationState(
+    val navHostController: NavHostController
+) {
 
     fun navigateTo(route: String) {
         navHostController.navigate(route) {
             popUpTo(navHostController.graph.findStartDestination().id) {
                 saveState = true
             }
-            restoreState = true
             launchSingleTop = true
+            restoreState = true
         }
     }
 
-    fun navigateToComments(feedPost: FeedPost){
-        navHostController.navigate(Screen.Comments.getRouteWithArgs(feedPost))
+    fun navigateToComments(feedPost: FeedPost) {
+        navHostController.navigate(Screen.Comments.getRouteWithArgs(feedPost)) // comments/15
     }
 }
 
@@ -28,5 +30,7 @@ class NavigationState(val navHostController: NavHostController) {
 fun rememberNavigationState(
     navHostController: NavHostController = rememberNavController()
 ): NavigationState {
-    return remember { NavigationState(navHostController) }
+    return remember {
+        NavigationState(navHostController)
+    }
 }

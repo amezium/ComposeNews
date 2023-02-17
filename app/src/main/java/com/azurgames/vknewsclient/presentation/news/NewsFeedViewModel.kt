@@ -1,60 +1,54 @@
 package com.azurgames.vknewsclient.presentation.news
-
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.azurgames.vknewsclient.data.repository.NewsFeedRepository
 import com.azurgames.vknewsclient.domain.FeedPost
-import com.azurgames.vknewsclient.domain.StatisticItem
+import kotlinx.coroutines.launch
 
-class NewsFeedViewModel : ViewModel() {
+class NewsFeedViewModel(application: Application) : AndroidViewModel(application) {
 
-
-
-    private val sourceList = mutableListOf<FeedPost>().apply {
-        repeat(13){
-            (add(FeedPost(id = it)))
-        }
-    }
-
-    private val initialState = NewsFeedScreenState.Posts(sourceList)
-
+    private val initialState = NewsFeedScreenState.Initial
 
     private val _screenState = MutableLiveData<NewsFeedScreenState>(initialState)
     val screenState: LiveData<NewsFeedScreenState> = _screenState
 
-    fun updateCount(feedPost: FeedPost,item: StatisticItem) {
-        val currentState = screenState.value
-        if (currentState !is NewsFeedScreenState.Posts) return
+    private val repository = NewsFeedRepository(application)
 
-        val oldPost = currentState.posts.toMutableList()
-        val oldStatistic = feedPost.statistics
-        val newStatistic = oldStatistic.toMutableList().apply {
-            replaceAll { oldItem ->
-                if (oldItem.type == item.type) {
-                    oldItem.copy(count = oldItem.count + 1)
-                } else oldItem
-            }
-        }
-        val newFeedPost = feedPost.copy(statistics = newStatistic)
-        val newPost = oldPost.apply {
-            replaceAll {
-                if (it.id == newFeedPost.id){
-                    newFeedPost
-                }else{
-                    it
-                }
-            }
-        }
-        _screenState.value = NewsFeedScreenState.Posts(posts = newPost)
+    init {
+        _screenState.value = NewsFeedScreenState.Loading
+        loadRecommendations()
     }
 
-    fun remove(feedPost: FeedPost){
-        val currentState = screenState.value
-        if (currentState !is NewsFeedScreenState.Posts) return
-
-        val oldPost = currentState.posts.toMutableList()
-        oldPost.remove(feedPost)
-        _screenState.value = NewsFeedScreenState.Posts(posts = oldPost)
+    private fun loadRecommendations() {
+        viewModelScope.launch {
+            val feedPosts = repository.loadRecommendations()
+            _screenState.value = NewsFeedScreenState.Posts(posts = feedPosts)
+        }
     }
 
+    fun loadNextRecommendations() {
+        _screenState.value = NewsFeedScreenState.Posts(
+            posts = repository.feedPosts,
+            nextDataIsLoading = true
+        )
+        loadRecommendations()
+    }
+
+    fun changeLikeStatus(feedPost: FeedPost) {
+        viewModelScope.launch {
+            repository.changeLikeStatus(feedPost)
+            _screenState.value = NewsFeedScreenState.Posts(posts = repository.feedPosts)
+        }
+    }
+
+    fun remove(feedPost: FeedPost) {
+        viewModelScope.launch {
+            repository.deletePost(feedPost)
+            _screenState.value = NewsFeedScreenState.Posts(posts = repository.feedPosts)
+        }
+    }
 }
+

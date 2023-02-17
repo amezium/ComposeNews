@@ -8,35 +8,33 @@ sealed class Screen(
     val route: String
 ) {
 
-    object NewsFeed: Screen(ROUTE_NEWS_FEED)
+    object NewsFeed : Screen(ROUTE_NEWS_FEED)
+    object Favourite : Screen(ROUTE_FAVOURITE)
+    object Profile : Screen(ROUTE_PROFILE)
+    object Home : Screen(ROUTE_HOME)
 
-    object FavoriteFeed: Screen(ROUTE_FAVORITE_FEED)
+    object Comments : Screen(ROUTE_COMMENTS) {
 
-    object ProfileFeed: Screen(ROUTE_PROFILE_FEED)
+        private const val ROUTE_FOR_ARGS = "comments"
 
-    object Home: Screen(ROUTE_HOME)
-
-    object Comments: Screen(ROUTE_COMMENTS){
-
-        private const val ROUTE_FOR_ARGS = "Comments"
-
-        fun getRouteWithArgs(feedPost: FeedPost): String{
+        fun getRouteWithArgs(feedPost: FeedPost): String {
             val feedPostJson = Gson().toJson(feedPost)
             return "$ROUTE_FOR_ARGS/${feedPostJson.encode()}"
         }
     }
 
-    companion object{
+    companion object {
+
         const val KEY_FEED_POST = "feed_post"
 
-        private const val ROUTE_HOME = "Home"
-        private const val ROUTE_COMMENTS = "Comments/{$KEY_FEED_POST}"
-        private const val ROUTE_NEWS_FEED = "NewsFeed"
-        private const val ROUTE_FAVORITE_FEED = "FavoriteFeed"
-        private const val ROUTE_PROFILE_FEED = "ProfileFeed"
+        const val ROUTE_HOME = "home"
+        const val ROUTE_COMMENTS = "comments/{$KEY_FEED_POST}"
+        const val ROUTE_NEWS_FEED = "news_feed"
+        const val ROUTE_FAVOURITE = "favourite"
+        const val ROUTE_PROFILE = "profile"
     }
 }
 
-fun String.encode(): String{
+fun String.encode(): String {
     return Uri.encode(this)
 }

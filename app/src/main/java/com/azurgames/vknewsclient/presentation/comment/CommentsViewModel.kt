@@ -1,13 +1,20 @@
 package com.azurgames.vknewsclient.presentation.comment
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.azurgames.vknewsclient.data.repository.NewsFeedRepository
 import com.azurgames.vknewsclient.domain.FeedPost
-import com.azurgames.vknewsclient.domain.PostComment
+import kotlinx.coroutines.launch
 
-class CommentsViewModel(feedPost: FeedPost): ViewModel() {
+class CommentsViewModel(
+    feedPost: FeedPost,
+    application: Application
+) : ViewModel() {
 
+    private val repository = NewsFeedRepository(application)
 
     private val _screenState = MutableLiveData<CommentsScreenState>(CommentsScreenState.Initial)
     val screenState: LiveData<CommentsScreenState> = _screenState
@@ -16,15 +23,13 @@ class CommentsViewModel(feedPost: FeedPost): ViewModel() {
         loadComments(feedPost)
     }
 
-    fun loadComments(feedPost: FeedPost){
-        val comments = mutableListOf<PostComment>().apply {
-            repeat(10){
-                add(PostComment(id = it))
-            }
+    private fun loadComments(feedPost: FeedPost) {
+        viewModelScope.launch {
+            val comments = repository.getComments(feedPost)
+            _screenState.value = CommentsScreenState.Comments(
+                feedPost = feedPost,
+                comments = comments
+            )
         }
-//        saveState = screenState.value
-        _screenState.value = CommentsScreenState.Comments(feedPost, comments)
     }
-
-
 }
